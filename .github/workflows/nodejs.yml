@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push]
+on: [push, pull_request]
 env:
   NODE_VERSION: 12.x
 
@@ -53,7 +53,6 @@ jobs:
         target_url: ${{ steps.zeit_deployment.outputs.preview-url }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - uses: octokit/request-action@v1.x
       if: failure()
       with:
