@@ -1,0 +1,21 @@
+name: GitHub Zen
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   
+  
+    steps:  
+  
+    - id: zen
+      run: echo ::set-output name=quote::$(curl https://api.github.com/zen)
+
+    - name: GitHub Zen comment
+      uses: actions/github@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: comment ">${{ steps.zen.outputs.quote }} :heart::octocat:"
